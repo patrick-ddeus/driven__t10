@@ -8,6 +8,11 @@ async function getHotels(userId: number) {
   await validateHotel(userId);
 
   const hotels = await hotelsRepository.listAll();
+
+  if (hotels.length === 0) {
+    throw notFoundError();
+  }
+
   return hotels;
 }
 
