@@ -8,7 +8,6 @@ import sessionRepository from '@/repositories/session-repository';
 
 async function signIn(params: SignInParams): Promise<SignInResult> {
   const { email, password } = params;
-
   const user = await getUserOrFail(email);
 
   await validatePasswordOrFail(password, user.password);
