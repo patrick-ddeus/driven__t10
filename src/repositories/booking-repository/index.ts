@@ -8,6 +8,24 @@ async function list(userId: number) {
   });
 }
 
+async function create(userId: number, roomId: number) {
+  return prisma.booking.create({
+    data: {
+      User: {
+        connect: {
+          id: userId,
+        },
+      },
+      Room: {
+        connect: {
+          id: roomId,
+        },
+      },
+    },
+  });
+}
+
 export default {
   list,
+  create,
 };

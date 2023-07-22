@@ -1,4 +1,4 @@
-import { TicketStatus, TicketType } from '@prisma/client';
+import { Ticket, TicketStatus, TicketType } from '@prisma/client';
 import { prisma } from '@/config';
 import { CreateTicketParams } from '@/protocols';
 
@@ -54,7 +54,7 @@ async function ticketProcessPayment(ticketId: number) {
   });
 }
 
-async function ticketByUserId(userId: number) {
+async function ticketByUserId(userId: number): Promise<UserTicket> {
   return prisma.ticket.findFirst({
     where: {
       Enrollment: {
@@ -66,6 +66,10 @@ async function ticketByUserId(userId: number) {
     },
   });
 }
+
+export type UserTicket = Ticket & {
+  TicketType: TicketType;
+};
 
 export default {
   findTicketTypes,

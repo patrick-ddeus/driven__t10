@@ -1,5 +1,5 @@
 import hotelsRepository from '@/repositories/hotels-repository';
-import ticketsRepository from '@/repositories/tickets-repository';
+import ticketsRepository, { UserTicket } from '@/repositories/tickets-repository';
 import { notFoundError } from '@/errors';
 import { paymentRequired } from '@/repositories/hotels-repository/error';
 import { badRequest } from '@/errors/bad-request';
@@ -42,9 +42,13 @@ async function validateHotel(userId: number, hotelId?: number) {
     }
   }
 
-  if (userTicket.status !== 'PAID' || userTicket.TicketType.isRemote || !userTicket.TicketType.includesHotel) {
+  if (!isValidTicket(userTicket)) {
     throw paymentRequired();
   }
+}
+
+export function isValidTicket(ticket: UserTicket) {
+  return !ticket.TicketType.isRemote && ticket.TicketType.includesHotel && ticket.status === 'PAID';
 }
 
 export default {
