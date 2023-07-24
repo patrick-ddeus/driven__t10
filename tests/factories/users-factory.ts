@@ -14,3 +14,10 @@ export async function createUser(params: Partial<User> = {}): Promise<User> {
     },
   });
 }
+
+export function buildUser() {
+  return {
+    id: 1,
+    email: 'teste@teste.com',
+  };
+}
