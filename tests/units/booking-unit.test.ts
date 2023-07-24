@@ -26,7 +26,7 @@ describe('getBookings service unit tests', () => {
 });
 
 describe('createBookings service unit tests', () => {
-  it('should return a error object with forbidden when theres no booking for the user', () => {
+  it('should return a error object with forbidden when theres no ticket for the user', () => {
     const user = buildUser();
     jest.spyOn(ticketsRepository, 'ticketByUserId').mockResolvedValue(null);
 
@@ -91,7 +91,7 @@ describe('createBookings service unit tests', () => {
 });
 
 describe('updateBooking unit tests', () => {
-  it('should return a error object with forbidden when theres no booking for the user', () => {
+  it('should return a error object with forbidden when theres no ticket for the user', () => {
     const user = buildUser();
     jest.spyOn(ticketsRepository, 'ticketByUserId').mockResolvedValue(null);
 
