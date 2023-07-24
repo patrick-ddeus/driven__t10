@@ -7,7 +7,7 @@ import roomRepository from '@/repositories/room-repository';
 async function getBookings(userId: number) {
   const booking = await bookingRepository.list(userId);
 
-  if (booking.length === 0) {
+  if (!booking) {
     throw notFoundError();
   }
 
@@ -24,14 +24,22 @@ async function createBooking(userId: number, roomId: number) {
   return booking;
 }
 
+async function updateBooking(userId: number, roomId: number) {
+  await getUserTicketAndCheck(userId);
+  await getRoomAndcheck(roomId);
+  await deleteUserBookingIfExists(userId);
+
+  const booking = await bookingRepository.create(userId, roomId);
+
+  return booking;
+}
+
 async function getUserTicketAndCheck(userId: number) {
   const userTicket = await ticketsRepository.ticketByUserId(userId);
 
   if (!userTicket || !isValidTicket(userTicket)) {
     throw forbidden();
   }
-
-  return userTicket;
 }
 
 async function getRoomAndcheck(roomId: number) {
@@ -44,11 +52,19 @@ async function getRoomAndcheck(roomId: number) {
   if (room.capacity === 0) {
     throw forbidden();
   }
+}
 
-  return room;
+async function deleteUserBookingIfExists(userId: number) {
+  const userBooking = await bookingRepository.listByUserId(userId);
+
+  if (userBooking) {
+    await bookingRepository.deleteOne(userBooking.id);
+    await roomRepository.updateCapacity(userBooking.roomId, true);
+  }
 }
 
 export default {
   getBookings,
   createBooking,
+  updateBooking,
 };

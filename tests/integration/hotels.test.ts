@@ -256,6 +256,30 @@ describe('GET /hotels/:hotelId', () => {
           createdAt: expect.any(String),
           updatedAt: expect.any(String),
         },
+        {
+          id: expect.any(Number),
+          name: expect.any(String),
+          capacity: expect.any(Number),
+          hotelId: hotel.id,
+          createdAt: expect.any(String),
+          updatedAt: expect.any(String),
+        },
+        {
+          id: expect.any(Number),
+          name: expect.any(String),
+          capacity: expect.any(Number),
+          hotelId: hotel.id,
+          createdAt: expect.any(String),
+          updatedAt: expect.any(String),
+        },
+        {
+          id: expect.any(Number),
+          name: expect.any(String),
+          capacity: expect.any(Number),
+          hotelId: hotel.id,
+          createdAt: expect.any(String),
+          updatedAt: expect.any(String),
+        },
       ],
     });
   });
