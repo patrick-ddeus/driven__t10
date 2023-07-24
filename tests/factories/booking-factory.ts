@@ -14,6 +14,9 @@ export async function createBooking(userId: number, roomId: number) {
         },
       },
     },
+    include: {
+      Room: true,
+    },
   });
 
   await decrementRoomCapacity(roomId);

@@ -20,16 +20,15 @@ async function createBooking(userId: number, roomId: number) {
 
   const booking = await bookingRepository.create(userId, roomId);
 
-  await roomRepository.updateCapacity(roomId, false);
   return booking;
 }
 
 async function updateBooking(userId: number, roomId: number) {
   await getUserTicketAndCheck(userId);
   await getRoomAndcheck(roomId);
-  await deleteUserBookingIfExists(userId);
+  const userBooking = await checkIfUserBookingExists(userId);
 
-  const booking = await bookingRepository.create(userId, roomId);
+  const booking = await bookingRepository.update(userBooking.id, roomId);
 
   return booking;
 }
@@ -49,18 +48,19 @@ async function getRoomAndcheck(roomId: number) {
     throw notFoundError();
   }
 
-  if (room.capacity === 0) {
+  if (room.Booking.length === room.capacity) {
     throw forbidden();
   }
 }
 
-async function deleteUserBookingIfExists(userId: number) {
+async function checkIfUserBookingExists(userId: number) {
   const userBooking = await bookingRepository.listByUserId(userId);
 
-  if (userBooking) {
-    await bookingRepository.deleteOne(userBooking.id);
-    await roomRepository.updateCapacity(userBooking.roomId, true);
+  if (!userBooking) {
+    throw forbidden();
   }
+
+  return userBooking;
 }
 
 export default {

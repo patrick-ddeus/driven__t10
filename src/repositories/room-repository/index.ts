@@ -5,23 +5,12 @@ async function listById(roomId: number) {
     where: {
       id: roomId,
     },
-  });
-}
-
-async function updateCapacity(roomId: number, increment: boolean) {
-  const mode = increment ? `increment` : `decrement`;
-
-  return prisma.room.update({
-    where: {
-      id: roomId,
-    },
-    data: {
-      capacity: { [mode]: 1 },
+    include: {
+      Booking: true,
     },
   });
 }
 
 export default {
   listById,
-  updateCapacity,
 };

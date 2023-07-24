@@ -45,9 +45,21 @@ async function deleteOne(bookingId: number) {
   });
 }
 
+async function update(bookingId: number, roomId: number) {
+  return prisma.booking.update({
+    where: {
+      id: bookingId,
+    },
+    data: {
+      roomId,
+    },
+  });
+}
+
 export default {
   list,
   listByUserId,
   create,
   deleteOne,
+  update,
 };
