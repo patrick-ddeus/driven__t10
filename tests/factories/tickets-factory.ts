@@ -24,9 +24,17 @@ export async function createTicketType(
 export async function createTicket(enrollmentId: number, ticketTypeId: number, status: TicketStatus) {
   return prisma.ticket.create({
     data: {
-      enrollmentId,
-      ticketTypeId,
+      TicketType: {
+        connect: {
+          id: ticketTypeId,
+        },
+      },
       status,
+      Enrollment: {
+        connect: {
+          id: enrollmentId,
+        },
+      },
     },
   });
 }

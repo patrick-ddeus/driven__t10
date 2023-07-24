@@ -4,7 +4,7 @@ import faker from '@faker-js/faker';
 import * as jwt from 'jsonwebtoken';
 import { cleanDb, generateValidToken } from '../helpers';
 import { createEnrollmentWithAddress, createTicket, createTicketType, createUser } from '../factories';
-import { createHotel } from '../factories/hotels-factory';
+import { createHotelWithRooms } from '../factories/hotels-factory';
 import app, { init } from '@/app';
 
 beforeAll(async () => {
@@ -101,7 +101,7 @@ describe('GET /hotels', () => {
     const ticketType = await createTicketType('false', 'true');
     await createTicket(enrollment.id, ticketType.id, 'PAID');
 
-    const hotel = await createHotel();
+    const hotel = await createHotelWithRooms();
 
     const { status, body } = await server.get('/hotels').set('Authorization', `Bearer ${token}`);
 
@@ -157,7 +157,7 @@ describe('GET /hotels/:hotelId', () => {
     const ticketType = await createTicketType('false', 'true');
     await createTicket(enrollment.id, ticketType.id, 'RESERVED');
 
-    const hotel = await createHotel();
+    const hotel = await createHotelWithRooms();
 
     const { status } = await server.get(`/hotels/${hotel.id}`).set('Authorization', `Bearer ${token}`);
 
@@ -172,7 +172,7 @@ describe('GET /hotels/:hotelId', () => {
     const ticketType = await createTicketType('true', 'true');
     await createTicket(enrollment.id, ticketType.id, 'PAID');
 
-    const hotel = await createHotel();
+    const hotel = await createHotelWithRooms();
 
     const { status } = await server.get(`/hotels/${hotel.id}`).set('Authorization', `Bearer ${token}`);
 
@@ -187,7 +187,7 @@ describe('GET /hotels/:hotelId', () => {
     const ticketType = await createTicketType('false', 'false');
     await createTicket(enrollment.id, ticketType.id, 'PAID');
 
-    const hotel = await createHotel();
+    const hotel = await createHotelWithRooms();
 
     const { status } = await server.get(`/hotels/${hotel.id}`).set('Authorization', `Bearer ${token}`);
 
@@ -228,7 +228,7 @@ describe('GET /hotels/:hotelId', () => {
     const ticketType = await createTicketType('false', 'true');
     await createTicket(enrollment.id, ticketType.id, 'PAID');
 
-    const hotel = await createHotel();
+    const hotel = await createHotelWithRooms();
 
     const { status, body } = await server.get(`/hotels/${hotel.id}`).set('Authorization', `Bearer ${token}`);
 
