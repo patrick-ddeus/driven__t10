@@ -1,76 +1,43 @@
-# Driven.t - Back-end
+# Drivent-backend
+Esse é o backend para o projeto Drivent um gerenciador de eventos com cadastro de ingresso, registro de eventos, hospedagem de hotéis e emissão de certificado.
 
-Back-end for Driven.t, an event management solution.
+## Banco de Dados
+O DrivenPass utiliza o banco de dados relacional PostgreSQL para armazenar com segurança as informações dos usuários. O esquema do banco de dados é projetado para garantir a integridade e a segurança dos dados. Em conjunto com o prisma para fazer as queries com segurança e de fácil manutenção com abstrações das entidades do banco
 
-## About
+## Tecnologias
+As seguintes ferramentas e tecnologias foram utilizadas para desenvolver este projeto
 
-Driven.t is a web browser application with which you can manage every single aspect of your event.
 
-## How to run for development
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 
-1. Clone this repository
-2. Install all dependencies
 
-```bash
-npm i
-```
+## Como Executar
 
-3. Create a PostgreSQL database with whatever name you want
-4. Configure the `.env.development` file using the `.env.example` file (see "Running application locally or inside docker section" for details)
-5. Run all migrations
+1. Clone este repositório.
 
-```bash
-npm run dev:migration:run
-```
+2. Instale as dependências:
 
-6. Seed db
+    ```bash
+    npm i
+    ```
+3. Configure as variáves de ambiente
+   - Utilize o `.env.example` para preencher corretamente as credenciais de conexão com o banco
 
-```bash
-npm run dev:seed
-```
+4. Execute com o comando:
 
-6. Run the back-end in a development environment:
+    ```bash
+    npm run dev
+    ```
 
-```bash
-npm run dev
-```
+5. Opcionalmente, você pode construir o projeto com o comando:
 
-## How to run tests
-
-1. Follow the steps in the last section
-2. Configure the `.env.test` file using the `.env.example` file (see "Running application locally or inside docker" section for details)
-3. Run all migrations:
-
-```bash
-npm run test:migration:run
-```
-
-4. Run test:
-
-```bash
-npm run test
-```
-
-## Building and starting for production
-
-```bash
-npm run build
-npm start
-```
-
-## Running migrations or generate prisma clients
-
-Before running migrations make sure you have a postgres db running based on `.env.development` or `.env.test` file for each environment. You can start a postgres instance by typing `npm run dev:postgres` or `npm run test:postgres`. The host name is the name of the postgres container inside docker-compose file if you are running the application inside a docker container or localhost if you are running it locally.
-
-You can operate on databases for different environments, but it is necessary to populate correct env variables for each environment first, so in order to perform db operations type the following commands:
-
-- `npm run dev:migration:run` - run migrations for development environment by loading envs from .env.development file. It uses [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme) to load envs from .env.development file.
-- `npm run test:migration:run` - the same, but for test environment
-
-- `npm run dev:migration:generate -- --name ATOMIC_OPERATION_NAME` - generate and run migration and prisma client for development environment by loading envs from .env.development file. Replace `ATOMIC_OPERATION_NAME` by the name of the migration you want to generate.
-
-## What to do when add new ENV VARIABLES
-
-There are several things you need to do when you add new ENV VARIABLES:
-- Add them to `.env.example` file
-- Add them to your local `.env.development` and `.env.test` files
+    ```bash
+    npm run build
